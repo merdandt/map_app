@@ -4,6 +4,17 @@ import 'package:latlong2/latlong.dart';
 import 'package:map_repository/src/models/nominatim_model.dart';
 
 class MapRepository {
+  static const almatyPosition = Position(
+      latitude: 43.238949,
+      longitude: 76.889709,
+      timestamp: null,
+      altitude: 3000.0,
+      accuracy: 0.0,
+      heading: 0.0,
+      speed: 0.0,
+      speedAccuracy: 0.0,
+      isMocked: false);
+
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
   final _http = ApiClient(baseUrl: APIEdnPoints.baseUrl);
 
