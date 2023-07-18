@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:map_app/counter/counter.dart';
 import 'package:map_app/l10n/l10n.dart';
+import 'package:map_app/map/map.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: const MapPage(),
     );
   }
 }

@@ -14,6 +14,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.18.0
+  map_repository:
+    path: ./packages/map_repository
+
 
 dev_dependencies:
   bloc_test: ^9.1.2
