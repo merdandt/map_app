@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:map_app/app/app.dart';
-import 'package:map_app/map/map.dart';
+import 'package:map_app/map/view/map_page.dart';
 
 void main() {
   group('App', () {

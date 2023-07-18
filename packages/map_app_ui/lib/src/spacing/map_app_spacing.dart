@@ -1,5 +1,4 @@
 abstract class UISpacing {
-  
   /// The default unit of spacing
   static const double spaceUnit = 16;
 
@@ -32,8 +31,10 @@ abstract class UISpacing {
 
   /// xxxlg spacing value (88pt)
   static const double xxxxlg = 5.5 * spaceUnit;
-  
+
   /// s10
   static const double s10 = 10;
-  
+
+  // 100
+  static const double h = 50;
 }

@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:map_app/l10n/l10n.dart';
-import 'package:map_app/map/map.dart';
+
+import 'package:map_app/map/view/map_page.dart';
+import 'package:map_app_ui/map_app_ui.dart';
+import 'package:map_repository/map_repository.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
-        ),
+    return RepositoryProvider(
+      create: (context) => MapRepository(),
+      child: MaterialApp(
+        theme: UITheme().lightTheme,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: const MapPage(),
       ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const MapPage(),
     );
   }
 }

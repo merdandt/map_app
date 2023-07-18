@@ -1,7 +1,7 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+    "tapToNavigate": "Tap to Navigate",
+    "@tapToNavigate": {
+        "description": "Text of the button for Location details page"
     }
 }
