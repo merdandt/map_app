@@ -8,7 +8,12 @@ class MapCubit extends Cubit<MapState> {
   MapCubit(this._mapRepository) : super(const MapState());
 
   void startMoving() {
-    emit(state.copyWith(isMoving: true));
+    emit(
+      state.copyWith(
+        isMoving: true,
+        status: LocationStaus.success,
+      ),
+    );
   }
 
   void endMoving(LatLng latLng) {
@@ -16,10 +21,16 @@ class MapCubit extends Cubit<MapState> {
   }
 
   Future<void> locateDevice() async {
+    emit(state.copyWith(status: LocationStaus.loading, isMoving: true));
     try {
       final myLocation = await _mapRepository.getCurrentPosition();
       if (myLocation != null) {
-        emit(state.copyWith(position: myLocation.toLatLng()));
+        emit(
+          state.copyWith(
+            position: myLocation.toLatLng(),
+            status: LocationStaus.success,
+          ),
+        );
         endMoving(myLocation.toLatLng());
       } else {
         emit(state.copyWith(error: 'Some Error'));

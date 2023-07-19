@@ -8,10 +8,10 @@ class DecodedCubit extends Cubit<DecoderState> {
   DecodedCubit(this._mapRepository) : super(const DecoderState());
   final MapRepository _mapRepository;
 
-  Future<void> fetchNominat(LatLng latLng) async {
+  Future<void> fetchGeoCoding(LatLng latLng) async {
     emit(state.copyWith(status: DecoderStaus.loading));
     try {
-      final nominat = await _mapRepository.getNominatium(latLng);
+      final nominat = await _mapRepository.getGeoCodingium(latLng);
       if (nominat != null) {
         return emit(
           state.copyWith(

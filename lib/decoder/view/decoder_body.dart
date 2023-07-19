@@ -5,6 +5,7 @@ import 'package:map_app/decoder/cubit/decoder_cubit.dart';
 import 'package:map_app/decoder/helpers/helpers.dart';
 import 'package:map_app/map/map.dart';
 import 'package:map_app_ui/map_app_ui.dart';
+import 'package:map_repository/map_repository.dart';
 
 class DecoderBody extends StatefulWidget {
   const DecoderBody({super.key});
@@ -15,6 +16,8 @@ class DecoderBody extends StatefulWidget {
 
 class _DecoderBodyState extends State<DecoderBody> {
   late final ValueNotifier<bool> _isMoving;
+
+  LatLng _latLng = const LatLng(0, 0);
 
   @override
   void initState() {
@@ -41,16 +44,20 @@ class _DecoderBodyState extends State<DecoderBody> {
         child: child,
       );
 
+  void fetchGeoCoding(LatLng latLng) =>
+      context.read<DecodedCubit>().fetchGeoCoding(latLng);
+
   @override
   Widget build(BuildContext context) {
     final mediaHeight = MediaQuery.sizeOf(context).height;
     final mediaWidth = MediaQuery.sizeOf(context).width;
     return BlocListener<MapCubit, MapState>(
       listenWhen: (previous, current) => previous.isMoving != current.isMoving,
-      listener: (context, state) {
-        _isMoving.value = state.isMoving;
+      listener: (context, mapState) {
+        _isMoving.value = mapState.isMoving;
         if (!_isMoving.value) {
-          context.read<DecodedCubit>().fetchNominat(state.position);
+          _latLng = mapState.position;
+          fetchGeoCoding(_latLng);
         }
       },
       child: BlocBuilder<DecodedCubit, DecoderState>(
@@ -69,14 +76,19 @@ class _DecoderBodyState extends State<DecoderBody> {
                   child: switch (state.status) {
                     DecoderStaus.loading =>
                       bodyContainer(const CupertinoActivityIndicator()),
-                    DecoderStaus.failure => IconButton(
-                        icon: const Icon(Icons.refresh),
-                        onPressed: () {},
+                    DecoderStaus.failure => bodyContainer(
+                        IconButton(
+                          icon: const Icon(Icons.refresh),
+                          onPressed: () {
+                            fetchGeoCoding(_latLng);
+                          },
+                        ),
                       ),
                     DecoderStaus.initial => const SizedBox(),
                     DecoderStaus.success => bodyContainer(
                         Text(
                           state.message,
+                          textAlign: TextAlign.center,
                           style: UITextStyle.bodyText2,
                         ),
                       )

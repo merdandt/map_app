@@ -4,18 +4,18 @@
 
 import 'dart:convert';
 
-Nominatim2 nominatim2FromJson(String str) =>
-    Nominatim2.fromJson(json.decode(str) as Map<String, dynamic>);
+GeoCodingim2 nominatim2FromJson(String str) =>
+    GeoCodingim2.fromJson(json.decode(str) as Map<String, dynamic>);
 
-String nominatim2ToJson(Nominatim2 data) => json.encode(data.toJson());
+String nominatim2ToJson(GeoCodingim2 data) => json.encode(data.toJson());
 
-class Nominatim2 {
-  Nominatim2({
+class GeoCodingim2 {
+  GeoCodingim2({
     required this.success,
     required this.data,
   });
 
-  factory Nominatim2.fromJson(Map<String, dynamic> json) => Nominatim2(
+  factory GeoCodingim2.fromJson(Map<String, dynamic> json) => GeoCodingim2(
         success: json['success'] as bool,
         data: Data.fromJson(json['data'] as Map<String, dynamic>),
       );

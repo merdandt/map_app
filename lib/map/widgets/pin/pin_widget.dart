@@ -23,7 +23,7 @@ class _PinWidgetState extends State<PinWidget> {
 
   @override
   Widget build(BuildContext context) {
-    const size = 60.0;
+    const size = 50.0;
     return BlocListener<MapCubit, MapState>(
       listenWhen: (previous, current) => previous.isMoving != current.isMoving,
       listener: (context, state) {

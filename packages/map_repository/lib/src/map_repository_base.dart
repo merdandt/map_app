@@ -30,7 +30,7 @@ class MapRepository {
   final _http = ApiClient();
   LocationPermission? permission;
 
-  Future<Nominatim2?> getNominatium(LatLng position) async {
+  Future<GeoCodingim2?> getGeoCodingium(LatLng position) async {
     try {
       // final bodyMap = <String, dynamic>{
       //   APIScheme.format: 'json',

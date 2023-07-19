@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-Nominatim nominatimFromJson(String str) =>
-    Nominatim.fromJson(json.decode(str) as Map<String, dynamic>);
+GeoCodingim nominatimFromJson(String str) =>
+    GeoCodingim.fromJson(json.decode(str) as Map<String, dynamic>);
 
-String nominatimToJson(Nominatim data) => json.encode(data.toJson());
+String nominatimToJson(GeoCodingim data) => json.encode(data.toJson());
 
-class Nominatim {
-  Nominatim({
+class GeoCodingim {
+  GeoCodingim({
     required this.placeId,
     required this.licence,
     required this.osmType,
@@ -18,7 +18,7 @@ class Nominatim {
     required this.boundingbox,
   });
 
-  factory Nominatim.fromJson(Map<String, dynamic> json) => Nominatim(
+  factory GeoCodingim.fromJson(Map<String, dynamic> json) => GeoCodingim(
         placeId: json['place_id'] as int,
         licence: json['licence'].toString(),
         osmType: json['osm_type'].toString(),
