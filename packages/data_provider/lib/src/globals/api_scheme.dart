@@ -9,4 +9,7 @@ abstract class APIScheme {
 
   /// Scheme for lontitude
   static const lon = 'lon';
+
+  /// Scheme for searching a street
+  static const street = 'street';
 }

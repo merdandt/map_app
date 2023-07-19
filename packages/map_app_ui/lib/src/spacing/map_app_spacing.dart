@@ -35,6 +35,9 @@ abstract class UISpacing {
   /// s10
   static const double s10 = 10;
 
-  // 100
-  static const double h = 50;
+  // pinH icon's height (50pt)
+  static const double pinH = 50;
+
+  // decoder widget's height (100pt)
+  static const double decoderH = 100;
 }

@@ -4,39 +4,63 @@ import 'package:map_repository/map_repository.dart';
 
 part 'map_state.dart';
 
+/// A [Cubit] that handles [MapState]
 class MapCubit extends Cubit<MapState> {
   MapCubit(this._mapRepository) : super(const MapState());
 
+  /// Notifies animated lisners that map is moving
   void startMoving() {
     emit(
       state.copyWith(
         isMoving: true,
-        status: LocationStaus.success,
       ),
     );
   }
 
-  void endMoving(LatLng latLng) {
-    emit(state.copyWith(isMoving: false, position: latLng));
+  /// Notifies animated lisners that map stopped moving
+  void endMoving(LatLng latLng, double zoom) {
+    emit(
+      state.copyWith(
+        isMoving: false,
+        position: latLng,
+        zoom: zoom,
+      ),
+    );
   }
 
+  /// Method that determines current location of your device
+  /// and emits new state
   Future<void> locateDevice() async {
-    emit(state.copyWith(status: LocationStaus.loading, isMoving: true));
+    await _mapRepository.search('Parahat');
+    emit(state.copyWith(status: LocationStaus.loading));
     try {
       final myLocation = await _mapRepository.getCurrentPosition();
-      if (myLocation != null) {
-        emit(
-          state.copyWith(
-            position: myLocation.toLatLng(),
-            status: LocationStaus.success,
-          ),
+      // Emit failure state
+      if (myLocation == null) {
+        return emit(
+          state.copyWith(error: 'Some Error', status: LocationStaus.failure),
         );
-        endMoving(myLocation.toLatLng());
-      } else {
-        emit(state.copyWith(error: 'Some Error'));
       }
+      // Debounce emitting unnecessary stare
+      if (myLocation.toLatLng() == state.position) {
+        return emit(state.copyWith(status: LocationStaus.success));
+      }
+      // Emit state with new location
+      emit(
+        state.copyWith(
+          isMoving: false,
+          position: myLocation.toLatLng(),
+          status: LocationStaus.success,
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(error: e.toString()));
+      emit(
+        state.copyWith(
+          error: e.toString(),
+          status: LocationStaus.failure,
+          isMoving: false,
+        ),
+      );
     }
   }
 

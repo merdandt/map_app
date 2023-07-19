@@ -50,7 +50,7 @@ class Data {
         lat: json['lat'] as String,
         lon: json['lon'] as String,
         displayName: json['display_name'] as String,
-        address: Address.fromJson(json['address'] as Map<String, dynamic>),
+        address: AddressAsman.fromJson(json['address'] as Map<String, dynamic>),
         boundingbox:
             List<String>.from((json['boundingbox'] as Iterable).map((x) => x)),
         asmanService: AsmanService.fromJson(
@@ -64,7 +64,7 @@ class Data {
   final String lat;
   final String lon;
   final String displayName;
-  final Address address;
+  final AddressAsman address;
   final List<String> boundingbox;
   final AsmanService asmanService;
 
@@ -82,15 +82,15 @@ class Data {
       };
 }
 
-class Address {
-  Address({
+class AddressAsman {
+  AddressAsman({
     required this.state,
     required this.postcode,
     required this.country,
     required this.countryCode,
   });
 
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
+  factory AddressAsman.fromJson(Map<String, dynamic> json) => AddressAsman(
         state: json['state'].toString(),
         postcode: json['postcode'].toString(),
         country: json['country'].toString(),

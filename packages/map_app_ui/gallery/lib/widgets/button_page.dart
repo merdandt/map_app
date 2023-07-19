@@ -41,7 +41,7 @@ class ButtonPage extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            theme.icons.emailOutline(
+            theme.icons.refresh(
               color: UIColors.blue,
             ),
             const SizedBox(width: contentSpacing),
@@ -70,7 +70,7 @@ class ButtonPage extends StatelessWidget {
           FloatingActionButton(
             onPressed: () {},
             backgroundColor: theme.colorScheme.background,
-            child: theme.icons.emailOutline(size: 20),
+            child: theme.icons.location(size: 20),
           ),
         ],
       ),
@@ -90,7 +90,7 @@ class ButtonPage extends StatelessWidget {
       ),
       const SizedBox(height: contentSpacing),
       ChoiceChip(
-        avatar: theme.icons.emailOutline(
+        avatar: theme.icons.pinIcon(
           color: UIColors.black,
         ),
         padding: const EdgeInsets.all(8),

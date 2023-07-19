@@ -14,15 +14,30 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
-  /// File path: assets/icons/back_icon.svg
-  SvgGenImage get backIcon => const SvgGenImage('assets/icons/back_icon.svg');
+  /// File path: assets/icons/code_gen.dart
+  String get codeGen => 'packages/map_app_ui/assets/icons/code_gen.dart';
 
-  /// File path: assets/icons/email_outline.svg
-  SvgGenImage get emailOutline =>
-      const SvgGenImage('assets/icons/email_outline.svg');
+  /// File path: assets/icons/icons.txt
+  String get icons => 'packages/map_app_ui/assets/icons/icons.txt';
+
+  /// File path: assets/icons/iconsDark.txt
+  String get iconsDark => 'packages/map_app_ui/assets/icons/iconsDark.txt';
+
+  /// File path: assets/icons/iconsLight.txt
+  String get iconsLight => 'packages/map_app_ui/assets/icons/iconsLight.txt';
+
+  /// File path: assets/icons/location.svg
+  SvgGenImage get location => const SvgGenImage('assets/icons/location.svg');
+
+  /// File path: assets/icons/pin_icon.svg
+  SvgGenImage get pinIcon => const SvgGenImage('assets/icons/pin_icon.svg');
+
+  /// File path: assets/icons/refresh.svg
+  SvgGenImage get refresh => const SvgGenImage('assets/icons/refresh.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [backIcon, emailOutline];
+  List<dynamic> get values =>
+      [codeGen, icons, iconsDark, iconsLight, location, pinIcon, refresh];
 }
 
 class $AssetsImagesGen {

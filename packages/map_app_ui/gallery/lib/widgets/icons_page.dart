@@ -19,11 +19,11 @@ class _IconsPage extends State<IconsPage> {
     const contentSpacing = UISpacing.sm;
     final appIconsList = [
       const SizedBox(height: contentSpacing),
-      theme.icons.emailOutline(
+      theme.icons.refresh(
         size: 30,
       ),
       const SizedBox(height: contentSpacing),
-      theme.icons.backIcon(
+      theme.icons.pinIcon(
         size: 30,
       ),
     ];

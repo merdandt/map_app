@@ -35,6 +35,7 @@ class _LocatorButtonState extends State<LocatorButton> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocListener<MapCubit, MapState>(
       listenWhen: (previous, current) => previous.isMoving != current.isMoving,
       listener: (context, state) {
@@ -58,12 +59,13 @@ class _LocatorButtonState extends State<LocatorButton> {
                     ),
                   LocationStaus.failure => locationWidget(
                       onTap: locateDevice,
-                      child: const Icon(Icons.refresh),
+                      child: theme.icons.refresh(),
                     ),
                   LocationStaus.success => locationWidget(
                       onTap: locateDevice,
-                      child: const Icon(
-                        Icons.my_location_rounded,
+                      child: theme.icons.location(
+                        size: UISpacing.xlg,
+                        color: UIColors.white,
                       ),
                     )
                 };

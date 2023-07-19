@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:map_app/map/map.dart';
 
-import 'package:map_app/map/widgets/pin/pin.dart';
+import 'package:map_app_ui/map_app_ui.dart';
 
 class PinWidget extends StatefulWidget {
   const PinWidget({super.key});
@@ -23,7 +23,7 @@ class _PinWidgetState extends State<PinWidget> {
 
   @override
   Widget build(BuildContext context) {
-    const size = 50.0;
+    const size = UISpacing.pinH;
     return BlocListener<MapCubit, MapState>(
       listenWhen: (previous, current) => previous.isMoving != current.isMoving,
       listener: (context, state) {

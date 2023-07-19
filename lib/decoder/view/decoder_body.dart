@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:map_app/decoder/cubit/decoder_cubit.dart';
-import 'package:map_app/decoder/helpers/helpers.dart';
 import 'package:map_app/map/map.dart';
 import 'package:map_app_ui/map_app_ui.dart';
 import 'package:map_repository/map_repository.dart';
@@ -27,7 +26,7 @@ class _DecoderBodyState extends State<DecoderBody> {
 
   Widget bodyContainer(Widget child) => Container(
         padding: const EdgeInsets.all(5),
-        height: 100,
+        height: UISpacing.decoderH,
         width: double.infinity,
         alignment: Alignment.center,
         decoration: ShapeDecoration(
@@ -35,7 +34,7 @@ class _DecoderBodyState extends State<DecoderBody> {
           color: Colors.white,
           shadows: const [
             BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.3),
+              color: UIColors.grey,
               blurRadius: 3,
               offset: Offset(0, 1),
             ),
@@ -52,7 +51,9 @@ class _DecoderBodyState extends State<DecoderBody> {
     final mediaHeight = MediaQuery.sizeOf(context).height;
     final mediaWidth = MediaQuery.sizeOf(context).width;
     return BlocListener<MapCubit, MapState>(
-      listenWhen: (previous, current) => previous.isMoving != current.isMoving,
+      listenWhen: (previous, current) =>
+          previous.isMoving != current.isMoving ||
+          previous.position != current.position,
       listener: (context, mapState) {
         _isMoving.value = mapState.isMoving;
         if (!_isMoving.value) {
@@ -74,8 +75,9 @@ class _DecoderBodyState extends State<DecoderBody> {
                     bottom: value ? mediaHeight : 140,
                   ),
                   child: switch (state.status) {
-                    DecoderStaus.loading =>
-                      bodyContainer(const CupertinoActivityIndicator()),
+                    DecoderStaus.loading => bodyContainer(
+                        const CupertinoActivityIndicator(),
+                      ),
                     DecoderStaus.failure => bodyContainer(
                         IconButton(
                           icon: const Icon(Icons.refresh),

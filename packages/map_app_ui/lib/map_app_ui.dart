@@ -7,3 +7,4 @@ export 'src/spacing/map_app_spacing.dart';
 export 'src/theme/map_app_theme.dart';
 export 'src/typography/typography.dart';
 export 'src/widgets/widgets.dart';
+export 'src/utils/utils.dart';

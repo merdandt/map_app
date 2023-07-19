@@ -4,16 +4,24 @@ import 'package:flutter_svg/svg.dart';
 
 class UIIconsDark extends UIIcon {
   @override
-  SvgPicture backIcon({double? size, Color? color}) {
-    return super.backIcon(
+  SvgPicture pinIcon({double? size, Color? color}) {
+    return super.pinIcon(
       color: color ?? UIColors.white,
       size: size ?? 14,
     );
   }
 
   @override
-  SvgPicture emailOutline({double? size, Color? color}) {
-    return super.emailOutline(
+  SvgPicture refresh({double? size, Color? color}) {
+    return super.refresh(
+      color: color ?? UIColors.white,
+      size: size ?? 14,
+    );
+  }
+
+  @override
+  SvgPicture location({double? size, Color? color}) {
+    return super.location(
       color: color ?? UIColors.white,
       size: size ?? 14,
     );

@@ -32,19 +32,23 @@ class _MapWidgetState extends State<MapWidget> {
             previous.position != current.position,
         listener: (context, state) {
           positionMapFocus = state.position;
-          _mapController.move(positionMapFocus!, 14);
+          _mapController.move(positionMapFocus!, state.zoom);
         },
         child: FlutterMap(
           mapController: _mapController,
           options: MapOptions(
+            maxZoom: 18,
             onMapEvent: (event) {
               if (event is MapEventMoveStart) {
                 context.read<MapCubit>().startMoving();
               } else if (event is MapEventMoveEnd) {
-                context.read<MapCubit>().endMoving(positionMapFocus!);
+                context.read<MapCubit>().endMoving(
+                      positionMapFocus!,
+                      _mapController.zoom,
+                    );
               }
             },
-            zoom: 14,
+            zoom: context.watch<MapCubit>().state.zoom,
             keepAlive: true,
             onPositionChanged: (position, hasGesture) {
               positionMapFocus = position.center;
