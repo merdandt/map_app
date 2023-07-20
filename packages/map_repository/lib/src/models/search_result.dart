@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:map_repository/map_repository.dart';
+
 SearchResult searchResultFromJson(String str) =>
     SearchResult.fromJson(json.decode(str) as Map<String, dynamic>);
 
@@ -79,6 +81,8 @@ class RetrievedAddress {
   final double importance;
   final AddressDetails address;
   final Geojson geojson;
+
+  LatLng get latlng => LatLng(double.parse(lat), double.parse(lon));
 
   Map<String, dynamic> toJson() => {
         'place_id': placeId,

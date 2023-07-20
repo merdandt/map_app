@@ -28,6 +28,17 @@ class MapCubit extends Cubit<MapState> {
     );
   }
 
+  /// Move the focus of the map and select location
+  void locateToThePoint(LatLng latLng) {
+    emit(
+      state.copyWith(
+        isMoving: false,
+        position: latLng,
+        status: LocationStaus.success,
+      ),
+    );
+  }
+
   /// Method that determines current location of your device
   /// and emits new state
   Future<void> locateDevice() async {
@@ -46,13 +57,7 @@ class MapCubit extends Cubit<MapState> {
         return emit(state.copyWith(status: LocationStaus.success));
       }
       // Emit state with new location
-      emit(
-        state.copyWith(
-          isMoving: false,
-          position: myLocation.toLatLng(),
-          status: LocationStaus.success,
-        ),
-      );
+      locateToThePoint(myLocation.toLatLng());
     } catch (e) {
       emit(
         state.copyWith(

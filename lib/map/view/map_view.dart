@@ -5,6 +5,8 @@ import 'package:map_app/decoder/decoder.dart';
 import 'package:map_app/map/map.dart';
 import 'package:map_app/map/widgets/map_widget.dart';
 
+import 'package:map_app/search/search.dart';
+
 extension Log on Object {
   void log() => devtools.log(toString());
 }
@@ -31,6 +33,7 @@ class MapView extends StatelessWidget {
           DecoderWidget(),
           PinWidget(),
           LocatorButton(),
+          SerachWidget(),
         ],
       ),
     );

@@ -17,13 +17,24 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc(this._mapRepository) : super(const SearchState()) {
-    on<SearchEvent>(
+    on<StreetSearched>(
       _onSearch,
       transformer: throttleDroppable(throttleDuration),
     );
+    on<SearchCleared>(_onSearchCleared);
   }
 
-  Future<void> _onSearch(SearchEvent event, Emitter<SearchState> emit) async {
+  void _onSearchCleared(SearchCleared event, Emitter<SearchState> emit) {
+    emit(state.copyWith(searchResult: []));
+  }
+
+  Future<void> _onSearch(
+    StreetSearched event,
+    Emitter<SearchState> emit,
+  ) async {
+    if (event.desiredAddress.isEmpty) {
+      return;
+    }
     emit(state.copyWith(status: SearchStatus.loaading));
     try {
       final result = await _mapRepository.search(event.desiredAddress);

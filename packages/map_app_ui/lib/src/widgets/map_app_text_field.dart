@@ -3,8 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:map_app_ui/map_app_ui.dart';
 
 class UITextField extends StatelessWidget {
-
-    const UITextField({
+  const UITextField({
     super.key,
     this.initialValue,
     this.autoFillHints,
@@ -21,22 +20,32 @@ class UITextField extends StatelessWidget {
     this.onSubmitted,
     this.onTap,
     this.obscureText,
+    this.fillColor,
+    this.filledBorder,
+    this.hintStyle,
+    this.contentPadding,
+    this.inputBorder,
   });
 
   /// A text field component based on material [TextFormField] widget which
   /// extends TextField with email icon and validates input type.
-   const UITextField.emailTextField({
+  const UITextField.emailTextField({
     super.key,
     this.initialValue,
     this.controller,
     this.inputFormatters,
     this.readOnly = false,
-    this.hintText,
     this.errorText,
     this.suffix,
     this.onChanged,
     this.onSubmitted,
     this.onTap,
+    this.hintText,
+    this.hintStyle,
+    this.fillColor,
+    this.filledBorder,
+    this.contentPadding,
+    this.inputBorder,
     this.obscureText,
   })  : keyboardType = TextInputType.emailAddress,
         autoFillHints = const [AutofillHints.email],
@@ -52,9 +61,34 @@ class UITextField extends StatelessWidget {
         ),
         autocorrect = false;
 
-    /// A password text field component based on material [TextFormField] widget which
-    /// extends TextField which obscures the text
-   const UITextField.passwordTextField({
+  /// A text field component based on material [TextFormField] widget which
+  /// extends TextField with search icon and validates input type.
+  const UITextField.search({
+    super.key,
+    this.initialValue,
+    this.controller,
+    this.inputFormatters,
+    this.readOnly = false,
+    this.errorText,
+    this.suffix,
+    this.onChanged,
+    this.onSubmitted,
+    this.onTap,
+    this.hintText,
+    this.hintStyle,
+    this.contentPadding,
+    this.fillColor,
+    this.filledBorder,
+    this.obscureText,
+    this.prefix,
+  })  : keyboardType = TextInputType.emailAddress,
+        autoFillHints = const [AutofillHints.fullStreetAddress],
+        inputBorder = InputBorder.none,
+        autocorrect = false;
+
+  /// A password text field component based on material [TextFormField] widget which
+  /// extends TextField which obscures the text
+  const UITextField.passwordTextField({
     super.key,
     this.initialValue,
     this.controller,
@@ -68,12 +102,16 @@ class UITextField extends StatelessWidget {
     this.keyboardType,
     this.autoFillHints,
     this.prefix,
+    this.hintStyle,
+    this.contentPadding,
+    this.fillColor,
+    this.filledBorder,
+    this.inputBorder,
   })  : hintText = 'Password',
         obscureText = true,
         autocorrect = false;
 
-
- /// A value to initialize the field to.
+  /// A value to initialize the field to.
   final String? initialValue;
 
   /// List of auto fill hints.
@@ -125,10 +163,25 @@ class UITextField extends StatelessWidget {
   /// Whether the text field should obscure the text being edited.
   final bool? obscureText;
 
+  // Defines the appearance of an [InputDecorator]'s border.
+  final InputBorder? inputBorder;
+
+//If true the decoration's container is filled with [fillColor].
+  final bool? filledBorder;
+
+  //The base fill color of the decoration's container color.
+  final Color? fillColor;
+
+  // The padding for the input decoration's container.
+  final EdgeInsetsGeometry? contentPadding;
+
+  // The style to use for the [hintText].
+  final TextStyle? hintStyle;
+
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: 80),
+      constraints: const BoxConstraints(minHeight: 50),
       child: TextFormField(
         key: key,
         initialValue: initialValue,
@@ -145,8 +198,13 @@ class UITextField extends StatelessWidget {
             ),
         onFieldSubmitted: onSubmitted,
         decoration: InputDecoration(
+          contentPadding: contentPadding,
+          fillColor: fillColor,
+          filled: filledBorder,
+          border: inputBorder,
+          focusColor: fillColor,
           hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.labelLarge,
+          hintStyle: hintStyle,
           errorText: errorText,
           prefixIcon: prefix,
           suffixIcon: suffix,
