@@ -32,13 +32,7 @@ class _DecoderBodyState extends State<DecoderBody> {
         decoration: ShapeDecoration(
           shape: ArrowMiddleBottomShape(),
           color: Colors.white,
-          shadows: const [
-            BoxShadow(
-              color: UIColors.grey,
-              blurRadius: 3,
-              offset: Offset(0, 1),
-            ),
-          ],
+          shadows: UIShadows.midShadow,
         ),
         child: child,
       );

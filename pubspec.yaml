@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   bloc: ^8.1.2
+  bloc_concurrency: ^0.2.2
   cached_network_image: ^3.2.3
   equatable: ^2.0.5
   flutter:
@@ -21,6 +22,7 @@ dependencies:
     path: ./packages/map_app_ui
   map_repository:
     path: ./packages/map_repository
+  stream_transform: ^2.1.0
 
 
 dev_dependencies:
