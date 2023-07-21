@@ -1,30 +1,37 @@
 part of 'decoder_cubit.dart';
 
+/// Status of the `status` field of [DecoderState]
 enum DecoderStaus { initial, loading, success, failure }
 
+/// A Class that defines the state of the Decoding
 final class DecoderState extends Equatable {
   const DecoderState({
     this.status = DecoderStaus.initial,
-    String? message,
+    String? retrievedName,
     this.isMoving = false,
-  }) : message = message ?? '';
+  }) : retrievedName = retrievedName ?? '';
 
   DecoderState copyWith({
     DecoderStaus? status,
-    String? message,
+    String? retrievedName,
     bool? isMoving,
   }) {
     return DecoderState(
       status: status ?? this.status,
-      message: message ?? this.message,
+      retrievedName: retrievedName ?? this.retrievedName,
       isMoving: isMoving ?? this.isMoving,
     );
   }
 
+  /// Current status
   final DecoderStaus status;
-  final String message;
+
+  /// Address of the current coordinates
+  final String retrievedName;
+
+  /// Property responsible for animation
   final bool isMoving;
 
   @override
-  List<Object> get props => [status, message, isMoving];
+  List<Object> get props => [status, retrievedName, isMoving];
 }

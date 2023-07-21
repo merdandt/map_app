@@ -72,7 +72,7 @@ class _DecoderBodyState extends State<DecoderBody> {
                 DecoderStaus.initial => const SizedBox(),
                 DecoderStaus.success => bodyContainer(
                     Text(
-                      state.message,
+                      state.retrievedName,
                       textAlign: TextAlign.center,
                       style: UITextStyle.bodyText2.copyWith(
                         decoration: TextDecoration.underline,

@@ -1,6 +1,11 @@
 # Map App
 
-![coverage][coverage_badge]
+<video controls style="max-width: 200px;">
+  <source src="screens/screen-video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
 [![License: MIT][license_badge]][license_link]
 
@@ -162,3 +167,4 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 [very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
+[video]: screens/screen-video.mp4
