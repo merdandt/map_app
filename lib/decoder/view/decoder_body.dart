@@ -14,15 +14,7 @@ class DecoderBody extends StatefulWidget {
 }
 
 class _DecoderBodyState extends State<DecoderBody> {
-  late final ValueNotifier<bool> _isMoving;
-
   LatLng _latLng = const LatLng(0, 0);
-
-  @override
-  void initState() {
-    super.initState();
-    _isMoving = ValueNotifier(false);
-  }
 
   Widget bodyContainer(Widget child) => Container(
         padding: const EdgeInsets.all(5),
@@ -49,8 +41,8 @@ class _DecoderBodyState extends State<DecoderBody> {
           previous.isMoving != current.isMoving ||
           previous.position != current.position,
       listener: (context, mapState) {
-        _isMoving.value = mapState.isMoving;
-        if (!_isMoving.value) {
+        context.read<DecodedCubit>().toggleMoving(val: mapState.isMoving);
+        if (!mapState.isMoving) {
           _latLng = mapState.position;
           fetchGeoCoding(_latLng);
         }
@@ -58,49 +50,41 @@ class _DecoderBodyState extends State<DecoderBody> {
       child: BlocBuilder<DecodedCubit, DecoderState>(
         builder: (context, state) {
           return Center(
-            child: ValueListenableBuilder(
-              valueListenable: _isMoving,
-              builder: (context, value, child) {
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  margin: EdgeInsets.only(
-                    left: mediaWidth * .2,
-                    right: mediaWidth * .2,
-                    bottom: value ? mediaHeight : 140,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              margin: EdgeInsets.only(
+                left: mediaWidth * .2,
+                right: mediaWidth * .2,
+                bottom: state.isMoving ? mediaHeight : 140,
+              ),
+              child: switch (state.status) {
+                DecoderStaus.loading => bodyContainer(
+                    const CupertinoActivityIndicator(),
                   ),
-                  child: switch (state.status) {
-                    DecoderStaus.loading => bodyContainer(
-                        const CupertinoActivityIndicator(),
+                DecoderStaus.failure => bodyContainer(
+                    IconButton(
+                      icon: const Icon(Icons.refresh),
+                      onPressed: () {
+                        fetchGeoCoding(_latLng);
+                      },
+                    ),
+                  ),
+                DecoderStaus.initial => const SizedBox(),
+                DecoderStaus.success => bodyContainer(
+                    Text(
+                      state.message,
+                      textAlign: TextAlign.center,
+                      style: UITextStyle.bodyText2.copyWith(
+                        decoration: TextDecoration.underline,
+                        decorationColor: UIColors.blue,
                       ),
-                    DecoderStaus.failure => bodyContainer(
-                        IconButton(
-                          icon: const Icon(Icons.refresh),
-                          onPressed: () {
-                            fetchGeoCoding(_latLng);
-                          },
-                        ),
-                      ),
-                    DecoderStaus.initial => const SizedBox(),
-                    DecoderStaus.success => bodyContainer(
-                        Text(
-                          state.message,
-                          textAlign: TextAlign.center,
-                          style: UITextStyle.bodyText2,
-                        ),
-                      )
-                  },
-                );
+                    ),
+                  )
               },
             ),
           );
         },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _isMoving.dispose();
   }
 }

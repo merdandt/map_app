@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:map_app/map/map.dart';
+import 'package:map_app/search/bloc/search_bloc.dart';
 import 'package:map_app_ui/map_app_ui.dart';
 import 'package:map_repository/map_repository.dart';
 
 class RetriviedWidget extends StatelessWidget {
   const RetriviedWidget({
     required this.address,
-    required this.callBack,
     super.key,
   });
   final RetrievedAddress address;
-  final void Function() callBack;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +18,12 @@ class RetriviedWidget extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: () {
-          callBack();
-          context.read<MapCubit>().locateToThePoint(address.latlng);
+          context.read<SearchBloc>().add(
+                const SearchCleared(),
+              );
+          context.read<MapCubit>().locateToThePoint(
+                address.latlng,
+              );
         },
         child: Row(
           children: [
@@ -39,12 +42,15 @@ class RetriviedWidget extends StatelessWidget {
                 address.displayName,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: UITextStyle.bodyText1.copyWith(
+                  decoration: TextDecoration.underline,
+                  decorationColor: UIColors.blue,
+                ),
               ),
             )
           ],
         ),
       ),
-    ).paddingSymmetric(v: UISpacing.xs);
+    ).paddingSymmetric(v: UISpacing.md);
   }
 }

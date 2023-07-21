@@ -42,7 +42,6 @@ class MapCubit extends Cubit<MapState> {
   /// Method that determines current location of your device
   /// and emits new state
   Future<void> locateDevice() async {
-    await _mapRepository.search('Parahat');
     emit(state.copyWith(status: LocationStaus.loading));
     try {
       final myLocation = await _mapRepository.getCurrentPosition();

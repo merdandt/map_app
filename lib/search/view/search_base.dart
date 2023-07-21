@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:map_app/map/cubit/map_cubit.dart';
 import 'package:map_app/search/search.dart';
-import 'package:map_app/search/widgets/retrieved_address_widget.dart';
 import 'package:map_app_ui/map_app_ui.dart';
+
+import 'package:map_app/search/widgets/widgets.dart';
 
 class SearchBase extends StatefulWidget {
   const SearchBase({super.key});
@@ -13,30 +15,16 @@ class SearchBase extends StatefulWidget {
 }
 
 class _SearchBaseState extends State<SearchBase> {
-  late final TextEditingController _searchController;
-
-  @override
-  void initState() {
-    super.initState();
-    _searchController = TextEditingController();
-  }
-
-  void searchStreet(String value) {
-    context.read<SearchBloc>().add(StreetSearched(value));
-  }
-
-  void clearSearch() {
-    _searchController.clear();
-    FocusScope.of(context).unfocus();
-    context.read<SearchBloc>().add(const SearchCleared());
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Positioned(
+    final isMoving = context.select<MapCubit, bool>(
+      (bloc) => bloc.state.isMoving,
+    );
+    return AnimatedPositioned(
+      duration: const Duration(milliseconds: 300),
       left: UISpacing.lg,
       right: UISpacing.lg,
-      top: UISpacing.decoderH,
+      top: isMoving ? -UISpacing.decoderH : UISpacing.xxxxlg,
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
           final maxHeight = MediaQuery.of(context).size.height * .5;
@@ -59,60 +47,9 @@ class _SearchBaseState extends State<SearchBase> {
             ),
             child: Column(
               children: [
-                UITextField.search(
-                  controller: _searchController,
-                  contentPadding: UISpacing.md.edgeInsetsAll(),
-                  onChanged: searchStreet,
-                  onSubmitted: searchStreet,
-                  prefix: switch (state.status) {
-                    SearchStatus.initial => const Icon(
-                        Icons.search,
-                        color: UIColors.grey,
-                      ).paddingSymmetric(h: UISpacing.md),
-                    SearchStatus.loaading => const CupertinoActivityIndicator()
-                        .paddingSymmetric(h: UISpacing.md),
-                    SearchStatus.success => const Icon(
-                        Icons.search,
-                        color: UIColors.grey,
-                      ).paddingSymmetric(h: UISpacing.md),
-                    SearchStatus.failure => const Icon(
-                        Icons.wrong_location_outlined,
-                        color: UIColors.red,
-                      ).paddingSymmetric(h: UISpacing.md),
-                  },
-                  suffix: list.isEmpty && _searchController.text.isEmpty
-                      ? const SizedBox()
-                      : IconButton(
-                          onPressed: clearSearch,
-                          icon: const Icon(
-                            Icons.close,
-                          ),
-                        ),
-                ).paddingOnly(
-                  right: UISpacing.md,
-                ),
+                const SearchHeader(),
                 Expanded(
-                  child: AnimatedCrossFade(
-                    crossFadeState: list.isEmpty
-                        ? CrossFadeState.showFirst
-                        : CrossFadeState.showSecond,
-                    duration: const Duration(milliseconds: 900),
-                    reverseDuration: Duration.zero,
-                    sizeCurve: Curves.fastLinearToSlowEaseIn,
-                    firstChild: const SizedBox(),
-                    secondChild: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          ...list.map(
-                            (e) => RetriviedWidget(
-                              address: e,
-                              callBack: clearSearch,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  child: SearchResultBody(list: list),
                 ),
               ],
             ),
@@ -120,11 +57,5 @@ class _SearchBaseState extends State<SearchBase> {
         },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _searchController.dispose();
   }
 }

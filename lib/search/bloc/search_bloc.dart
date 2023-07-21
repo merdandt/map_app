@@ -7,7 +7,7 @@ import 'package:stream_transform/stream_transform.dart';
 part 'search_event.dart';
 part 'search_state.dart';
 
-const throttleDuration = Duration(milliseconds: 500);
+const throttleDuration = Duration(milliseconds: 200);
 
 EventTransformer<E> throttleDroppable<E>(Duration duration) {
   return (events, mapper) {
@@ -25,7 +25,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void _onSearchCleared(SearchCleared event, Emitter<SearchState> emit) {
-    emit(state.copyWith(searchResult: []));
+    emit(state.copyWith(status: SearchStatus.cleared, searchResult: []));
   }
 
   Future<void> _onSearch(

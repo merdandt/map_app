@@ -17,7 +17,7 @@ class MapRepository {
   final _http = ApiClient();
   LocationPermission? permission;
 
-  Future<GeoCodingim2?> getGeoCodingium(LatLng position) async {
+  Future<GeoCodingim2?> getGeoCoding(LatLng position) async {
     try {
       //
       // final bodyMap = <String, dynamic>{

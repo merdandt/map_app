@@ -16,3 +16,10 @@ final class SearchCleared extends SearchEvent {
   @override
   List<Object?> get props => [];
 }
+
+final class SearchMoved extends SearchEvent {
+  const SearchMoved({required this.isMoving});
+  final bool isMoving;
+  @override
+  List<Object?> get props => [isMoving];
+}
