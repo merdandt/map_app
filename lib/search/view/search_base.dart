@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:map_app/map/cubit/map_cubit.dart';
 import 'package:map_app/search/search.dart';
-import 'package:map_app_ui/map_app_ui.dart';
-
 import 'package:map_app/search/widgets/widgets.dart';
+import 'package:map_app_ui/map_app_ui.dart';
 
 class SearchBase extends StatefulWidget {
   const SearchBase({super.key});
