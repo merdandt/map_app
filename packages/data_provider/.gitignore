@@ -15,9 +15,10 @@
 *.iws
 .idea/
 
+**/api_endpoints.dart
+
 # VSCode related
 .vscode/
-**/globals/api_endpoints.dart
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
